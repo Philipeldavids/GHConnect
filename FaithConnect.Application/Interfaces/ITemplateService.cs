@@ -11,13 +11,13 @@ namespace FaithConnect.Application.Interfaces
     {
         Task<List<TemplateDto>> GetAllAsync();
 
-        Task<TemplateDto> GetAsync(Guid id);
+        Task<TemplateDto> GetByIdAsync(Guid id);
 
         Task CreateAsync(CreateTemplateDto dto);
 
         Task UpdateAsync(
             Guid id,
-            CreateTemplateDto dto);
+            UpdateTemplateDto dto);
 
         Task DeleteAsync(Guid id);
     }

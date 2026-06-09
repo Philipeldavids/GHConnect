@@ -10,7 +10,7 @@ namespace FaithConnect.Domain.Models
     {
         public string Name { get; set; } = string.Empty;
 
-        public string Type { get; set; } = string.Empty;
+        public string Channel { get; set; } = string.Empty;
 
         // SMS or Email
 

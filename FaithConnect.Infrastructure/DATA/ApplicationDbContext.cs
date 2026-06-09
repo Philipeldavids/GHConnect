@@ -13,6 +13,8 @@ namespace FaithConnect.Infrastructure.DATA
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         { }
+
+        public DbSet<MessageTemplate> MessageTemplates { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<Member> Members { get; set; }
         public DbSet<Service> Services { get; set; }

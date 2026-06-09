@@ -18,7 +18,7 @@ namespace FaithConnect.Domain.DTO
         public string Subject { get; set; }
             = string.Empty;
 
-        public string Content { get; set; }
+        public string Body { get; set; }
             = string.Empty;
     }
 }
