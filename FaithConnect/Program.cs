@@ -126,7 +126,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("CorsPolicy", p => p
     //WithOrigins("https://www.zucohr.com")
     //.WithOrigins("http://localhost:5173")
-    .WithOrigins("https://faithconnect8.vercel.app")
+    .WithOrigins("https://faithconnect9.vercel.app")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials()
