@@ -313,6 +313,11 @@ BulkUploadAsync(IFormFile file)
                 LastName = dto.LastName,
                 PhoneNumber = dto.PhoneNumber,
                 Email = dto.Email,
+                DateOfBirth = dto.DateOfBirth.ToUniversalTime(),
+                MaritalStatus = dto.MaritalStatus,
+                Address = dto.Address,
+                Gender = dto.Gender,
+                Occupation = dto.Occupation,
                 MembershipDate = DateTime.UtcNow
             };
 

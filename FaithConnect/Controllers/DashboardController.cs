@@ -2,36 +2,38 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FaithConnect.API.Controllers;
-
-[ApiController]
-[Route("api/dashboard")]
-[Authorize]
-public class DashboardController : ControllerBase
+namespace FaithConnect.API.Controllers
 {
-    private readonly IDashboardService _dashboardService;
 
-    public DashboardController(
-        IDashboardService dashboardService)
+    [ApiController]
+    [Route("api/dashboard")]
+    [Authorize]
+    public class DashboardController : ControllerBase
     {
-        _dashboardService = dashboardService;
-    }
+        private readonly IDashboardService _dashboardService;
 
-    [HttpGet("summary")]
-    public async Task<IActionResult> Summary()
-    {
-        try
+        public DashboardController(
+            IDashboardService dashboardService)
         {
-            var result =
-            await _dashboardService
-                .GetSummaryAsync();
+            _dashboardService = dashboardService;
+        }
 
-            return Ok(result);
-        }
-        catch(Exception ex)
+        [HttpGet("summary")]
+        public async Task<IActionResult> Summary()
         {
-            return BadRequest(ex.Message);
+            try
+            {
+                var result =
+                await _dashboardService
+                    .GetSummaryAsync();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
-        
     }
 }

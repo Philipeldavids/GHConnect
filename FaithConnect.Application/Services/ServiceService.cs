@@ -111,7 +111,7 @@ namespace FaithConnect.Application.Services
                         ServiceType =
                             dto.ServiceType,
                         ServiceDate =
-                            dto.ServiceDate,
+                            dto.ServiceDate.ToUniversalTime(),
                         StartTime =
                             TimeSpan.Parse(dto.StartTime),
                         LateThreshold =
@@ -152,7 +152,7 @@ namespace FaithConnect.Application.Services
                 dto.ServiceType;
 
             service.ServiceDate =
-                dto.ServiceDate;
+                dto.ServiceDate.ToUniversalTime();
 
             service.StartTime =
                 dto.StartTime;

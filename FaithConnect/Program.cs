@@ -105,6 +105,8 @@ builder.Services.AddScoped<
 builder.Services.AddScoped<
     IRoleService,
     RoleService>();
+
+builder.Services.AddScoped<ITemplateService, TemplateService>();
 builder.Services.AddScoped<ISettingsService, SettingsService>();
 builder.Services.AddScoped<ITokenGenerator, TokenGenerator>();
 builder.Services.AddScoped<IJwtService, JwtService>();

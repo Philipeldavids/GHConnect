@@ -35,7 +35,7 @@ namespace FaithConnect.Application.Services
                 new DateTime(
                     today.Year,
                     today.Month,
-                    1);
+                    1).ToUniversalTime();
 
             // Members
 
@@ -117,7 +117,7 @@ namespace FaithConnect.Application.Services
             // Trend
 
             var yearStart =
-    new DateTime(today.Year, 1, 1);
+    new DateTime(today.Year, 1, 1).ToUniversalTime();
 
             var yearEnd =
                 yearStart.AddYears(1);
