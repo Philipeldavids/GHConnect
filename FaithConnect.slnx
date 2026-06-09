@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="FaithConnect.Application/FaithConnect.Application.csproj" />
+  <Project Path="FaithConnect.Infrastructure/FaithConnect.Infrastructure.csproj" />
+  <Project Path="FaithConnect.Shared/FaithConnect.Shared.csproj" />
+  <Project Path="FaithConnect/FaithConnect.csproj" />
+  <Project Path="FatihConnect.Domain/FaithConnect.Domain.csproj" />
+</Solution>

@@ -1,0 +1,6 @@
+@FaithConnect_HostAddress = http://localhost:5186
+
+GET {{FaithConnect_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
