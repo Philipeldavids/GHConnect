@@ -11,27 +11,27 @@ namespace FaithConnect.Domain.Models
         public string Name { get; set; }
             = string.Empty;
 
-        public string Email { get; set; }
+        public string? Email { get; set; }
             = string.Empty;
 
-        public string PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
             = string.Empty;
 
-        public string Address { get; set; }
+        public string? Address { get; set; }
             = string.Empty;
-        public string Website { get; set; }
-        public string LogoUrl { get; set; }
+        public string? Website { get; set; }
+        public string? LogoUrl { get; set; }
             = string.Empty;
 
-        public int LastMemberNumber { get; set; }
+        public int? LastMemberNumber { get; set; }
 
         // Attendance / Geofencing
 
-        public double Latitude { get; set; }
+        public double? Latitude { get; set; }
 
-        public double Longitude { get; set; }
+        public double? Longitude { get; set; }
 
-        public int DefaultAllowedRadiusMeters
+        public int? DefaultAllowedRadiusMeters
         {
             get;
             set;

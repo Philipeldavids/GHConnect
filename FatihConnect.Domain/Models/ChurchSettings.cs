@@ -14,18 +14,18 @@ namespace FaithConnect.Domain.Models
 
         public string? LogoUrl { get; set; }
 
-        public string EmailAddress { get; set; } = string.Empty;
+        public string? EmailAddress { get; set; } = string.Empty;
 
-        public string PhoneNumber { get; set; } = string.Empty;
+        public string? PhoneNumber { get; set; } = string.Empty;
 
-        public decimal Latitude { get; set; }
+        public double? Latitude { get; set; }
 
-        public decimal Longitude { get; set; }
+        public double? Longitude { get; set; }
 
-        public double AttendanceRadiusMeters { get; set; }
+        public double? AttendanceRadiusMeters { get; set; }
 
-        public string SmsProvider { get; set; } = string.Empty;
+        public string? SmsProvider { get; set; } = string.Empty;
 
-        public string EmailProvider { get; set; } = string.Empty;
+        public string? EmailProvider { get; set; } = string.Empty;
     }
 }
