@@ -132,7 +132,22 @@ namespace FaithConnect.Infrastructure.DATA
                 entity.HasKey(x => x.Id);
             });
             modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
+            modelBuilder.Entity<UserRole>()
+    .HasKey(x => new
+    {
+        x.UserId,
+        x.RoleId
+    });
 
+            modelBuilder.Entity<UserRole>()
+                .HasOne(x => x.User)
+                .WithMany(x => x.UserRoles)
+                .HasForeignKey(x => x.UserId);
+
+            modelBuilder.Entity<UserRole>()
+                .HasOne(x => x.Role)
+                .WithMany(x => x.UserRoles)
+                .HasForeignKey(x => x.RoleId);
             modelBuilder.Entity<RolePermission>()
     .HasKey(x => new
     {

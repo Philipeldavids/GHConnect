@@ -30,14 +30,14 @@ builder.Services.Configure<EmailSettings>(
 var conn = builder.Configuration.GetConnectionString("DefaultConnection");
 
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(conn));
-
 //builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+//    options.UseSqlServer(conn));
 
-//var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-//optionsBuilder.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+optionsBuilder.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 
 
 builder.Services.AddIdentity<User, Role>()
