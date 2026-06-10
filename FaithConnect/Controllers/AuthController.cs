@@ -21,21 +21,38 @@ namespace FaithConnect.Controllers
         public async Task<IActionResult> Login(
             [FromBody] LoginDto dto)
         {
-            var result =
-                await _authService.LoginAsync(dto);
 
-            return Ok(result);
+            try
+            {
+                var result =
+               await _authService.LoginAsync(dto);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+           
         }
         [HttpPost("register")]
         public async Task<IActionResult> Register(
     [FromBody] RegisterDto dto)
         {
-            var result =
+            try
+            {
+                var result =
                 await _authService
                     .RegisterAsync(dto);
 
-            return Ok(result);
-        }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            }
+            
 
         [HttpPost("refresh")]
         public async Task<IActionResult> Refresh(
