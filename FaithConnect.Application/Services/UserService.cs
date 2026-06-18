@@ -289,6 +289,8 @@ ResetPasswordAsync(
                     result.Errors
                         .Select(x =>
                             x.Description)));
+        user.MustChangePassword = false;
+        await _userManager.UpdateAsync(user);
     }
     public async Task UpdateAsync(
         string id,
