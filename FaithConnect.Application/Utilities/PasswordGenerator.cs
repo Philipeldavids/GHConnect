@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace FaithConnect.Application.Utilities
 {
+    using System.Security.Cryptography;
+    using System.Text;
+
     public static class PasswordGenerator
     {
         public static string Generate(
@@ -16,37 +19,58 @@ namespace FaithConnect.Application.Utilities
             bool includeNumbers = true,
             bool includeSymbols = true)
         {
-            if (length < 6)
-                throw new ArgumentException("Password length must be at least 6");
-
             var upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             var lower = "abcdefghijklmnopqrstuvwxyz";
             var numbers = "0123456789";
             var symbols = "!@#$%^&*()-_=+[]{}|;:,.<>?";
 
-            var charPool = new StringBuilder();
+            var requiredSets = new List<string>();
 
-            if (includeUpper) charPool.Append(upper);
-            if (includeLower) charPool.Append(lower);
-            if (includeNumbers) charPool.Append(numbers);
-            if (includeSymbols) charPool.Append(symbols);
+            if (includeUpper) requiredSets.Add(upper);
+            if (includeLower) requiredSets.Add(lower);
+            if (includeNumbers) requiredSets.Add(numbers);
+            if (includeSymbols) requiredSets.Add(symbols);
 
-            if (charPool.Length == 0)
-                throw new ArgumentException("At least one character set must be selected");
+            if (!requiredSets.Any())
+                throw new ArgumentException("At least one character set must be selected.");
 
-            var password = new StringBuilder();
-            var randomBytes = new byte[length];
+            if (length < requiredSets.Count)
+                throw new ArgumentException($"Password length must be at least {requiredSets.Count}.");
 
-            using var rng = RandomNumberGenerator.Create();
-            rng.GetBytes(randomBytes);
+            var password = new List<char>();
 
-            for (int i = 0; i < length; i++)
+            // Add one character from each required set
+            foreach (var set in requiredSets)
             {
-                var idx = randomBytes[i] % charPool.Length;
-                password.Append(charPool[idx]);
+                password.Add(GetRandomChar(set));
             }
 
-            return password.ToString();
+            // Build combined pool
+            var allChars = string.Concat(requiredSets);
+
+            while (password.Count < length)
+            {
+                password.Add(GetRandomChar(allChars));
+            }
+
+            // Shuffle
+            Shuffle(password);
+
+            return new string(password.ToArray());
+        }
+
+        private static char GetRandomChar(string chars)
+        {
+            return chars[RandomNumberGenerator.GetInt32(chars.Length)];
+        }
+
+        private static void Shuffle(IList<char> list)
+        {
+            for (int i = list.Count - 1; i > 0; i--)
+            {
+                int j = RandomNumberGenerator.GetInt32(i + 1);
+                (list[i], list[j]) = (list[j], list[i]);
+            }
         }
     }
 }
