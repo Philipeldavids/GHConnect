@@ -52,6 +52,7 @@ namespace FaithConnect.Application.Services
                     "Account is disabled"
                 );
             }
+            
 
             var validPassword =
                 await _userManager.CheckPasswordAsync(
@@ -96,6 +97,20 @@ namespace FaithConnect.Application.Services
 
             await _context.SaveChangesAsync();
 
+            if (user.MustChangePassword)
+            {
+                return new LoginResponseDto
+                {
+                    AccessToken = accessToken,
+                    RefreshToken = refreshToken,
+                    FullName = user.FullName,
+                    Email = user.Email ?? "",
+                    Roles = roles.ToList(),
+                    ForcePasswordChange =
+        user.MustChangePassword
+                };
+            }
+
             return new LoginResponseDto
             {
                 AccessToken = accessToken,
@@ -137,7 +152,7 @@ namespace FaithConnect.Application.Services
                         token.User
                     );
 
-                        
+                  
 
             return new LoginResponseDto
             {

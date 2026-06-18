@@ -18,5 +18,6 @@ namespace FaithConnect.Domain.DTO
 
         public List<string> Roles { get; set; }
             = new();
+        public bool ForcePasswordChange { get; set; }
     }
 }

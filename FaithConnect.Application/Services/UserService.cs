@@ -1,4 +1,5 @@
 ﻿using FaithConnect.Application.Interfaces;
+using FaithConnect.Application.Utilities;
 using FaithConnect.Domain.DTO;
 using FaithConnect.Domain.Models;
 using Microsoft.AspNetCore.Identity;
@@ -8,12 +9,13 @@ public class UserService : IUserService
 {
     private readonly UserManager<User> _userManager;
     private readonly ITenantService _tenantService;
-
+    private readonly IEmailService _emailService;
     public UserService(
-        UserManager<User> userManager, ITenantService tenantService)
+        UserManager<User> userManager, IEmailService emailService, ITenantService tenantService)
     {
         _userManager = userManager;
         _tenantService = tenantService;
+        _emailService = emailService;
     }
     public async Task<List<string>>
     GetUserRolesAsync(
@@ -65,7 +67,51 @@ public class UserService : IUserService
                     dto.Roles);
         }
     }
+    public async Task<string>
+ResetPasswordAsync(
+    string userId)
+    {
+        var user =
+            await _userManager
+                .FindByIdAsync(userId);
 
+        if (user == null)
+            throw new Exception(
+                "User not found");
+
+        var password =
+            PasswordGenerator
+                .Generate(10);
+
+        var token =
+            await _userManager
+                .GeneratePasswordResetTokenAsync(
+                    user);
+
+        var result =
+            await _userManager
+                .ResetPasswordAsync(
+                    user,
+                    token,
+                    password);
+
+
+        if (!result.Succeeded)
+            throw new Exception(
+                "Password reset failed");
+
+                user.MustChangePassword = true;
+        await _userManager.UpdateAsync(user);
+
+
+        await _emailService
+            .SendEmailAsync(
+                user.Email!,
+                "Password Reset",
+                $"Your new password is: {password}");
+
+        return password;
+    }
     public async Task RemoveRoleAsync(
     string userId,
     string roleName)
@@ -213,6 +259,37 @@ public class UserService : IUserService
         return user.Id;
     }
 
+    public async Task ChangePasswordAsync(
+    string userId,
+    ChangePasswordDto dto)
+    {
+        if (dto.NewPassword != dto.ConfirmPassword)
+            throw new Exception(
+                "Passwords do not match");
+
+        var user =
+            await _userManager
+                .FindByIdAsync(userId);
+
+        if (user == null)
+            throw new Exception(
+                "User not found");
+
+        var result =
+            await _userManager
+                .ChangePasswordAsync(
+                    user,
+                    dto.CurrentPassword,
+                    dto.NewPassword);
+
+        if (!result.Succeeded)
+            throw new Exception(
+                string.Join(
+                    ",",
+                    result.Errors
+                        .Select(x =>
+                            x.Description)));
+    }
     public async Task UpdateAsync(
         string id,
         UpdateUserDto dto)

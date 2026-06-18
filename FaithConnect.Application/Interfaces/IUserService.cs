@@ -22,6 +22,14 @@ namespace FaithConnect.Application.Interfaces
             string id,
             UpdateUserDto dto);
 
+        Task ChangePasswordAsync(
+    string userId,
+    ChangePasswordDto dto);
+
+        Task<string>
+ResetPasswordAsync(
+    string userId);
+
         Task DeleteAsync(
             string id);
 

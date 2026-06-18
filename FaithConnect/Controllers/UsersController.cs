@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Org.BouncyCastle.Crypto.Generators;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace FaithConnect.Controllers
 {
@@ -27,6 +29,27 @@ namespace FaithConnect.Controllers
             _userManager = userManager;
         }
 
+        [HttpPost(
+    "{id}/reset-password"
+)]
+        public async Task<IActionResult>
+ResetPassword(
+    string id)
+        {
+            try
+            {
+                await _userService
+               .ResetPasswordAsync(
+                   id);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            { 
+                return BadRequest(ex.Message);
+            }
+           
+        }
         [HttpDelete(
     "{userId}/roles/{roleName}")]
         public async Task<IActionResult>
@@ -61,6 +84,27 @@ namespace FaithConnect.Controllers
                     .GetUserRolesAsync(id));
         }
 
+
+        [HttpPost(
+    "change-password")]
+        public async Task<IActionResult>
+ChangePassword(
+    ChangePasswordDto dto)
+        {
+            var userId =
+                User.FindFirst(JwtRegisteredClaimNames.Sub)?.Value ??
+            User.FindFirst(
+                    ClaimTypes.NameIdentifier)?
+                .Value;
+
+            await _userService
+                .ChangePasswordAsync(
+                    userId!,
+                    dto);
+
+            return Ok(
+                "Password updated");
+        }
         [HttpGet]
         public async Task<IActionResult>
             GetAll()
