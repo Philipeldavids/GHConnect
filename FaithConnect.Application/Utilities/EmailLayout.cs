@@ -8,7 +8,7 @@ namespace FaithConnect.Application.Utilities
 {
     public static class EmailLayout
     {
-        private const string LogoUrl = "https://res.cloudinary.com/dck7rspdt/image/upload/v1781008293/GhConnectLogo_n8yk7q.png";
+        private const string LogoUrl = "https://res.cloudinary.com/dck7rspdt/image/upload/v1781782419/faithconnect2_ntl4pu.png";
         public static string Build(
             string title,
             string body
@@ -37,7 +37,7 @@ namespace FaithConnect.Application.Utilities
 
         <img
             src='{LogoUrl}'
-            alt='GHConnect'
+            alt='FaithConnect'
             style='max-height:70px;
                    width:auto;
                    display:block;
@@ -64,7 +64,7 @@ namespace FaithConnect.Application.Utilities
                                                color:#6b7280;
                                                font-size:12px;'>
 
-                                        © {DateTime.UtcNow.Year} GHConnect.
+                                        © {DateTime.UtcNow.Year} FaithConnect.
                                         All rights reserved.
 
                                     </td>

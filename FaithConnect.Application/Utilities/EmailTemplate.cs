@@ -27,7 +27,7 @@ namespace FaithConnect.Application.Utilities
                     Your member account has been created successfully.
                 </p>
                  <p>
-                    Kindly use the the below credentials to login to your employee portal at www.ghconnect.com and don't forget to change your password.
+                    Kindly use the the below credentials to login to your employee portal at www.faithconnect.ng and don't forget to change your password.
                 </p>
                  <p>
                     {Email}
@@ -39,7 +39,7 @@ namespace FaithConnect.Application.Utilities
             ";
 
             return EmailLayout.Build(
-                "Welcome to GHConnect",
+                "Welcome to FaithConnect",
                 body
             );
         }
